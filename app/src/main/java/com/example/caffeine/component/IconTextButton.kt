@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.caffeine.extension.dropShadow
 import com.example.caffeine.ui.theme.Urbanist
 
 
@@ -30,7 +31,15 @@ fun IconTextButton(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(Color(0xFF1f1f1f)),
         contentPadding = ButtonDefaults.TextButtonWithIconContentPadding,
-        modifier = modifier.padding(bottom = 8.dp)
+        modifier = modifier
+            .dropShadow(
+                blur = 12.dp,
+                shape = ButtonDefaults.shape,
+                color = Color(0x3D000000),
+                offsetY = 6.dp
+            )
+            .padding(bottom = 8.dp)
+
 
     ) {
         Row(
