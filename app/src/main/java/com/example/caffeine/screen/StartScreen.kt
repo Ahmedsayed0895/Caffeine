@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import com.example.caffeine.R
 import com.example.caffeine.component.Header
 import com.example.caffeine.component.IconTextButton
@@ -21,10 +22,12 @@ fun StartScreen() {
         containerColor = Color.White
     ) { contentPadding ->
         Column(
-            modifier = Modifier.padding(contentPadding),
+            modifier = Modifier
+                .padding(contentPadding)
+                .padding(16.dp),
             horizontalAlignment = CenterHorizontally
         ) {
-            Header()
+            Header(bottomSpace = 24.dp)
             MainText()
             Image(
                 painter = painterResource(R.drawable.coffee_ghost),
@@ -35,7 +38,10 @@ fun StartScreen() {
                 contentDescription = "shadow",
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconTextButton()
+            IconTextButton(
+                text = "bring my coffee",
+                icon = painterResource(R.drawable.coffee)
+            )
 
 
 
