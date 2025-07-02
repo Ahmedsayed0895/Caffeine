@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.caffeine.R
 import com.example.caffeine.ui.theme.darkestBrown
@@ -23,12 +24,14 @@ import com.example.caffeine.ui.theme.primaryWhite
 
 
 @Composable
-fun Header() {
+fun Header(
+    modifier: Modifier = Modifier,
+    bottomSpace: Dp
+) {
     Row(
-        modifier = Modifier
-            .padding(bottom = 24.dp)
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(bottom = bottomSpace)
     )
     {
         Box(
