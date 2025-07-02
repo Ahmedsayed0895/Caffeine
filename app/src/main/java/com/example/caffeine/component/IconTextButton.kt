@@ -11,21 +11,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.caffeine.R
+import com.example.caffeine.extension.dropShadow
 import com.example.caffeine.ui.theme.Urbanist
 
 
 @Composable
-fun IconTextButton() {
+fun IconTextButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    text: String,
+    icon: Painter
+
+) {
     Button(
-        onClick = {},
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(Color(0xFF1f1f1f)),
         contentPadding = ButtonDefaults.TextButtonWithIconContentPadding,
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = modifier
+            .dropShadow(
+                blur = 12.dp,
+                shape = ButtonDefaults.shape,
+                color = Color(0x3D000000),
+                offsetY = 6.dp
+            )
+            .padding(bottom = 8.dp)
+
 
     ) {
         Row(
@@ -34,7 +48,7 @@ fun IconTextButton() {
             horizontalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "bring my coffee",
+                text = text,
                 color = Color(0xDEFFFFFF),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
@@ -42,7 +56,7 @@ fun IconTextButton() {
                 modifier = Modifier.padding(end = 8.dp),
             )
             Icon(
-                painter = painterResource(R.drawable.coffee),
+                painter = icon,
                 contentDescription = "shadow",
                 tint = Color(0xDEFFFFFF),
             )

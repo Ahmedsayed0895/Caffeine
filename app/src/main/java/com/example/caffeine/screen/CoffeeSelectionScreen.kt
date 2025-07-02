@@ -1,8 +1,8 @@
 package com.example.caffeine.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -12,38 +12,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.caffeine.R
+import com.example.caffeine.component.CoffeeSlider
 import com.example.caffeine.component.Header
 import com.example.caffeine.component.IconTextButton
-import com.example.caffeine.component.MainText
+import com.example.caffeine.component.WelcomeMessage
 
 @Composable
-fun StartScreen() {
+fun CoffeeSelectionScreen() {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
         Column(
             modifier = Modifier
                 .padding(contentPadding)
-                .padding(16.dp),
-            horizontalAlignment = CenterHorizontally
-        ) {
-            Header(bottomSpace = 24.dp)
-            MainText()
-            Image(
-                painter = painterResource(R.drawable.coffee_ghost),
-                contentDescription = "Coffee Ghost",
-            )
-            Image(
-                painter = painterResource(R.drawable.shadow),
-                contentDescription = "shadow",
-            )
+                .fillMaxSize()
+                .padding(vertical = 16.dp),
+
+            horizontalAlignment = CenterHorizontally,
+
+            ) {
+            Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            WelcomeMessage()
+            CoffeeSlider()
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
-                text = "bring my coffee",
-                icon = painterResource(R.drawable.coffee)
+                text = "Continue",
+                icon = painterResource(R.drawable.arrow_right)
             )
-
-
 
         }
 
