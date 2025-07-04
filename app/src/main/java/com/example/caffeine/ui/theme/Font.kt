@@ -6,7 +6,8 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.caffeine.R
 
 val Sniglet = FontFamily(
-    Font(R.font.sniglet, FontWeight.Normal)
+    Font(R.font.sniglet, FontWeight.Normal),
+    Font(R.font.sniglet_extrabold, FontWeight.ExtraBold)
 )
 
 val Urbanist = FontFamily(
