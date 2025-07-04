@@ -24,13 +24,7 @@ fun CupSize() {
             painter = painterResource(R.drawable.cup_back),
             contentDescription = "Product Image",
         )
-        Image(
-            painter = painterResource(R.drawable.added_coffee),
-            contentDescription = "Product Image",
-            modifier = Modifier
-                .size(100.dp)
-                .align(Alignment.TopCenter)
-        )
+
         Image(
             painter = painterResource(R.drawable.cup_front),
             contentDescription = "Product Image",
