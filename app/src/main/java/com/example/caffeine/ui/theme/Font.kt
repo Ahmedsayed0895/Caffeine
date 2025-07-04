@@ -11,5 +11,6 @@ val Sniglet = FontFamily(
 
 val Urbanist = FontFamily(
     Font(R.font.urbanist, FontWeight.Normal),
+    Font(R.font.urbanist_medium, FontWeight.Medium),
     Font(R.font.urbanist_bold, FontWeight.Bold)
 )
