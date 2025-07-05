@@ -27,7 +27,7 @@ fun CoffeeSeparatedCup() {
         Image(
             painter = painterResource(R.drawable.cup_cover),
             contentDescription = "Product Image",
-            modifier = Modifier.padding(top = 20.dp),
+            modifier = Modifier.padding(top = 10.dp),
 
             )
     }
