@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.BackButtonHeader
 import com.example.caffeine.component.CoffeeSelector
@@ -24,6 +25,8 @@ import com.example.caffeine.component.SizeSelector
 fun ProductScreen(
     navController: NavController,
 ) {
+    val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -36,7 +39,10 @@ fun ProductScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp)) {
+            BackButtonHeader(
+                bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp),
+                title = args!!
+            ) {
                 navController.popBackStack()
             }
             CupSize()
@@ -46,7 +52,10 @@ fun ProductScreen(
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
-                icon = painterResource(R.drawable.arrow_right)
+                icon = painterResource(R.drawable.arrow_right),
+                onClick = {
+                    navController.navigate(AppDestination.LoadingScreen.route)
+                }
             )
 
         }

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,11 +20,13 @@ import com.example.caffeine.component.CoffeeSlider
 import com.example.caffeine.component.Header
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.WelcomeMessage
+import com.example.caffeine.model.coffeeList
 
 @Composable
 fun CoffeeSelectionScreen(
     navController: NavController
 ) {
+    val currentCoffeeTitle = remember { mutableStateOf(coffeeList.first().title) }
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -37,12 +41,14 @@ fun CoffeeSelectionScreen(
             ) {
             Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
             WelcomeMessage()
-            CoffeeSlider()
+            CoffeeSlider(onSelectionChanged = {})
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
                 icon = painterResource(R.drawable.arrow_right),
-                onClick = { navController.navigate(AppDestination.LoadingScreen.route) }
+                onClick = {
+                    navController.navigate("${AppDestination.ProductScreen.route}/$currentCoffeeTitle")
+                }
             )
 
         }

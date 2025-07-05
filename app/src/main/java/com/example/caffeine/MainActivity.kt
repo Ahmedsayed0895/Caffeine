@@ -4,12 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.caffeine.screen.CoffeeSelectionScreen
 import com.example.caffeine.screen.LoadingScreen
 import com.example.caffeine.screen.OrderDoneScreen
+import com.example.caffeine.screen.ProductScreen
 import com.example.caffeine.screen.StartScreen
 import com.example.caffeine.ui.theme.CaffeineTheme
 
@@ -31,7 +34,15 @@ class MainActivity : ComponentActivity() {
                     composable(AppDestination.CoffeeSelectionScreen.route) {
                         CoffeeSelectionScreen(navController)
                     }
-                    composable(AppDestination.LoadingScreen.route) {
+                    composable(
+                        route = "${AppDestination.ProductScreen.route}/{title}",
+                        arguments = listOf(navArgument("title") { type = NavType.StringType })
+                    ) {
+                        ProductScreen(navController)
+                    }
+                    composable(
+                        route = AppDestination.LoadingScreen.route,
+                    ) {
                         LoadingScreen(navController)
                     }
                     composable(AppDestination.OrderDoneScreen.route) {

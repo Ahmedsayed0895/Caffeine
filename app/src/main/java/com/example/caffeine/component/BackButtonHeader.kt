@@ -31,6 +31,7 @@ import com.example.caffeine.ui.theme.primaryWhite
 @Composable
 fun BackButtonHeader(
     modifier: Modifier = Modifier,
+    title: String,
     bottomSpace: Dp,
     onBackClick: () -> Unit,
 ) {
@@ -58,7 +59,7 @@ fun BackButtonHeader(
         }
         Spacer(Modifier.width(12.dp))
         Text(
-            text = "Macchiato",
+            text = title,
             color = Color(0xDE1F1F1F),
             fontSize = 24.sp,
             fontWeight = FontWeight.W700,

@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.caffeine.R
-import com.example.caffeine.component.BackButtonHeader
 import com.example.caffeine.component.CupSize
 import com.example.caffeine.component.TimerText
 import com.example.caffeine.ui.theme.Urbanist
@@ -38,9 +37,6 @@ fun LoadingScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp)) {
-                navController.popBackStack()
-            }
             CupSize()
             Spacer(modifier = Modifier.weight(1f))
             Image(

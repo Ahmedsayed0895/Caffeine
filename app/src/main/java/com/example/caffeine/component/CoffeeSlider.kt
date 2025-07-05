@@ -14,7 +14,9 @@ import androidx.compose.ui.unit.dp
 import com.example.caffeine.model.coffeeList
 
 @Composable
-fun CoffeeSlider() {
+fun CoffeeSlider(
+    onSelectionChanged: (String) -> Unit
+) {
     val config = LocalConfiguration.current
     val screenWidth = config.screenWidthDp.dp
     val paddingValue = screenWidth * 0.25f
@@ -24,10 +26,13 @@ fun CoffeeSlider() {
         pageSpacing = 8.dp,
         pageSize = PageSize.Fixed(200.dp),
         contentPadding = PaddingValues(horizontal = paddingValue),
+
     ) { page ->
         val isSelected = pagerState.currentPage == page
         val scale = animateFloatAsState(if (isSelected) 1f else 0.8f)
-
+        if (isSelected) {
+            onSelectionChanged(coffeeList[page].title)
+        }
         Box(
             modifier = Modifier.scale(scale.value),
         ) {
