@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.CoffeeSlider
 import com.example.caffeine.component.Header
@@ -18,7 +20,9 @@ import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.WelcomeMessage
 
 @Composable
-fun CoffeeSelectionScreen() {
+fun CoffeeSelectionScreen(
+    navController: NavController
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -37,7 +41,8 @@ fun CoffeeSelectionScreen() {
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
-                icon = painterResource(R.drawable.arrow_right)
+                icon = painterResource(R.drawable.arrow_right),
+                onClick = { navController.navigate(AppDestination.LoadingScreen.route) }
             )
 
         }

@@ -11,13 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.Header
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.MainText
 
 @Composable
-fun StartScreen() {
+fun StartScreen(
+    navController: NavController
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -40,7 +44,8 @@ fun StartScreen() {
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "bring my coffee",
-                icon = painterResource(R.drawable.coffee)
+                icon = painterResource(R.drawable.coffee),
+                onClick = { navController.navigate(AppDestination.CoffeeSelectionScreen.route) }
             )
 
 

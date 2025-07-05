@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.CoffeeSeparatedCup
 import com.example.caffeine.component.CoffeeSwitchButton
@@ -20,7 +21,9 @@ import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.OrderReadyMessage
 
 @Composable
-fun OrderDoneScreen() {
+fun OrderDoneScreen(
+    navController: NavController
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.BackButtonHeader
 import com.example.caffeine.component.CoffeeSelector
@@ -20,7 +21,9 @@ import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.SizeSelector
 
 @Composable
-fun ProductScreen() {
+fun ProductScreen(
+    navController: NavController,
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -33,7 +36,9 @@ fun ProductScreen() {
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp)) {
+                navController.popBackStack()
+            }
             CupSize()
             SizeSelector()
             Spacer(modifier = Modifier.height(16.dp))

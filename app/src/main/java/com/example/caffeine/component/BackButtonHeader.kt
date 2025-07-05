@@ -31,7 +31,8 @@ import com.example.caffeine.ui.theme.primaryWhite
 @Composable
 fun BackButtonHeader(
     modifier: Modifier = Modifier,
-    bottomSpace: Dp
+    bottomSpace: Dp,
+    onBackClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -44,7 +45,7 @@ fun BackButtonHeader(
             modifier = Modifier
                 .size(48.dp)
                 .clip(shape = CircleShape)
-                .clickable {}
+                .clickable { onBackClick() }
                 .background(primaryWhite),
             contentAlignment = Alignment.Center
         ) {

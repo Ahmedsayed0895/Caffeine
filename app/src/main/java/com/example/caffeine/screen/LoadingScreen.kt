@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.BackButtonHeader
 import com.example.caffeine.component.CupSize
@@ -22,7 +23,9 @@ import com.example.caffeine.component.TimerText
 import com.example.caffeine.ui.theme.Urbanist
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(
+    navController: NavController,
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -35,7 +38,9 @@ fun LoadingScreen() {
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp)) {
+                navController.popBackStack()
+            }
             CupSize()
             Spacer(modifier = Modifier.weight(1f))
             Image(
