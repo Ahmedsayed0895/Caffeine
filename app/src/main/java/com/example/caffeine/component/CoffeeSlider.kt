@@ -24,7 +24,7 @@ fun CoffeeSlider(
     HorizontalPager(
         state = pagerState,
         pageSpacing = 8.dp,
-        pageSize = PageSize.Fixed(200.dp),
+        pageSize = PageSize.Fixed(250.dp),
         contentPadding = PaddingValues(horizontal = paddingValue),
 
     ) { page ->
