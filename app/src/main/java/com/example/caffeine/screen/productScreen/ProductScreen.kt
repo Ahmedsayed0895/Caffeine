@@ -1,4 +1,4 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.productScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,15 +12,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.BackButtonHeader
 import com.example.caffeine.component.CoffeeSelector
 import com.example.caffeine.component.CupSize
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.SizeSelector
+import com.example.caffeine.navigation.AppDestination
 
 @Composable
-fun ProductScreen() {
+fun ProductScreen(
+    navController: NavController,
+) {
+    val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -33,7 +39,12 @@ fun ProductScreen() {
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            BackButtonHeader(
+                bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp),
+                title = checkNotNull(args)
+            ) {
+                navController.popBackStack()
+            }
             CupSize()
             SizeSelector()
             Spacer(modifier = Modifier.height(16.dp))
@@ -41,7 +52,10 @@ fun ProductScreen() {
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
-                icon = painterResource(R.drawable.arrow_right)
+                icon = painterResource(R.drawable.arrow_right),
+                onClick = {
+                    navController.navigate(AppDestination.LoadingScreen.route)
+                }
             )
 
         }

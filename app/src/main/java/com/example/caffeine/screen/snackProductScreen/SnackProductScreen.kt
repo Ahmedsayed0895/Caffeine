@@ -1,4 +1,4 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.snackProductScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.ExitHeader
 import com.example.caffeine.component.IconTextButton
@@ -25,7 +26,9 @@ import com.example.caffeine.ui.theme.Sniglet
 import com.example.caffeine.ui.theme.Urbanist
 
 @Composable
-fun SnackProductScreen() {
+fun SnackProductScreen(
+    navController: NavController
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->

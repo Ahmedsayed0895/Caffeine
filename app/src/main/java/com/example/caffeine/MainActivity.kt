@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.caffeine.screen.SnackProductScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.caffeine.navigation.NavGraph
 import com.example.caffeine.ui.theme.CaffeineTheme
 
 class MainActivity : ComponentActivity() {
@@ -12,9 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
             CaffeineTheme {
-                SnackProductScreen()
-
+                NavGraph(navController)
             }
         }
     }

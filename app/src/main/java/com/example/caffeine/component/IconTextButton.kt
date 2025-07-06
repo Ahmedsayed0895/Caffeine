@@ -38,12 +38,10 @@ fun IconTextButton(
                 color = Color(0x3D000000),
                 offsetY = 6.dp
             )
-            .padding(bottom = 8.dp)
-
 
     ) {
         Row(
-            modifier = Modifier.padding(vertical = 18.dp, horizontal = 32.dp),
+            modifier = Modifier.padding(vertical = 12.dp, horizontal = 24.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
