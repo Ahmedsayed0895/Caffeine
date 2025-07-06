@@ -10,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +22,7 @@ import com.example.caffeine.R
 import com.example.caffeine.component.ExitHeader
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.ui.theme.Sniglet
+import com.example.caffeine.ui.theme.Urbanist
 
 @Composable
 fun SnackProductScreen() {
@@ -64,13 +66,17 @@ fun SnackProductScreen() {
                 contentDescription = "Product Image",
 
                 )
-            Row(modifier = Modifier.padding(top = 12.dp)) {
+            Row(
+                modifier = Modifier.padding(top = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = "Bon appétit",
                     color = Color(0xCC1F1F1F),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = Sniglet
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = Urbanist,
+                    modifier = Modifier.padding(end = 8.dp)
                 )
                 Image(
                     painter = painterResource(R.drawable.magic_wand),
