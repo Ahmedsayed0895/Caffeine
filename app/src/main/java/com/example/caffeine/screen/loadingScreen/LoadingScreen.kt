@@ -1,4 +1,4 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.loadingScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -17,10 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.CupSize
 import com.example.caffeine.component.TimerText
+import com.example.caffeine.navigation.AppDestination
 import com.example.caffeine.ui.theme.Urbanist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

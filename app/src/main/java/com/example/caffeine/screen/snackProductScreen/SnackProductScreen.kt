@@ -1,4 +1,4 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.snackProductScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

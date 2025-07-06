@@ -1,32 +1,49 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.coffeeSelectionScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.caffeine.AppDestination
 import com.example.caffeine.R
-import com.example.caffeine.component.BackButtonHeader
-import com.example.caffeine.component.CoffeeSelector
-import com.example.caffeine.component.CupSize
+import com.example.caffeine.component.CoffeeSlider
+import com.example.caffeine.component.Header
 import com.example.caffeine.component.IconTextButton
-import com.example.caffeine.component.SizeSelector
+import com.example.caffeine.component.WelcomeMessage
+import com.example.caffeine.model.coffeeList
+import com.example.caffeine.navigation.AppDestination
+
 
 @Composable
-fun ProductScreen(
-    navController: NavController,
+fun CoffeeSelectionScreen(
+    navController: NavController
 ) {
-    val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+    val currentCoffeeTitle = remember { mutableStateOf(coffeeList.first().title) }
 
+    CoffeeSelectionContent(
+        onSelectionChanged = {
+            currentCoffeeTitle.value = it
+        },
+        onButtonClick = {
+            navController.navigate("${AppDestination.ProductScreen.route}/${currentCoffeeTitle.value}")
+        }
+    )
+}
+
+@Composable
+fun CoffeeSelectionContent(
+    onButtonClick: () -> Unit,
+    onSelectionChanged: (String) -> Unit,
+) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -39,30 +56,19 @@ fun ProductScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            BackButtonHeader(
-                bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp),
-                title = checkNotNull(args)
-            ) {
-                navController.popBackStack()
-            }
-            CupSize()
-            SizeSelector()
-            Spacer(modifier = Modifier.height(16.dp))
-            CoffeeSelector()
+            Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            WelcomeMessage()
+            CoffeeSlider(onSelectionChanged = onSelectionChanged)
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
                 icon = painterResource(R.drawable.arrow_right),
-                onClick = {
-                    navController.navigate(AppDestination.LoadingScreen.route)
-                }
+                onClick = onButtonClick
             )
 
         }
 
     }
 }
-
-
 
 

@@ -1,4 +1,4 @@
-package com.example.caffeine
+package com.example.caffeine.navigation
 
 sealed class AppDestination(val route: String) {
     object StartScreen : AppDestination("StartScreen")

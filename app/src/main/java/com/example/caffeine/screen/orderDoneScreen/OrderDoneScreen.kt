@@ -1,4 +1,4 @@
-package com.example.caffeine.screen
+package com.example.caffeine.screen.orderDoneScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,13 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.CoffeeSeparatedCup
 import com.example.caffeine.component.CoffeeSwitchButton
 import com.example.caffeine.component.ExitHeader
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.OrderReadyMessage
+import com.example.caffeine.navigation.AppDestination
 
 @Composable
 fun OrderDoneScreen(
