@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.caffeine.AppDestination
 import com.example.caffeine.R
 import com.example.caffeine.component.CoffeeSeparatedCup
 import com.example.caffeine.component.CoffeeSwitchButton
@@ -36,7 +37,16 @@ fun OrderDoneScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            ExitHeader(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            ExitHeader(
+                bottomSpace = 16.dp,
+                modifier = Modifier.padding(horizontal = 16.dp),
+                onClick = {
+                    navController.popBackStack(
+                        route = AppDestination.StartScreen.route,
+                        inclusive = false
+                    )
+                }
+            )
             OrderReadyMessage()
             CoffeeSeparatedCup()
             Spacer(modifier = Modifier.weight(1f))

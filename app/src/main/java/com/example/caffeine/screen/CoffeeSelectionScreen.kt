@@ -41,13 +41,15 @@ fun CoffeeSelectionScreen(
             ) {
             Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
             WelcomeMessage()
-            CoffeeSlider(onSelectionChanged = {})
+            CoffeeSlider(onSelectionChanged = {
+                currentCoffeeTitle.value = it
+            })
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
                 icon = painterResource(R.drawable.arrow_right),
                 onClick = {
-                    navController.navigate("${AppDestination.ProductScreen.route}/$currentCoffeeTitle")
+                    navController.navigate("${AppDestination.ProductScreen.route}/${currentCoffeeTitle.value}")
                 }
             )
 

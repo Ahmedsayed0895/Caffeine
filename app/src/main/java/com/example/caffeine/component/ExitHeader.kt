@@ -24,7 +24,8 @@ import com.example.caffeine.ui.theme.primaryWhite
 @Composable
 fun ExitHeader(
     modifier: Modifier = Modifier,
-    bottomSpace: Dp
+    bottomSpace: Dp,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -37,7 +38,7 @@ fun ExitHeader(
             modifier = Modifier
                 .size(48.dp)
                 .clip(shape = CircleShape)
-                .clickable {}
+                .clickable { onClick() }
                 .background(primaryWhite),
             contentAlignment = Alignment.Center
         ) {

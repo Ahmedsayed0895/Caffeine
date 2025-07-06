@@ -41,7 +41,7 @@ fun ProductScreen(
             ) {
             BackButtonHeader(
                 bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp),
-                title = args!!
+                title = checkNotNull(args)
             ) {
                 navController.popBackStack()
             }

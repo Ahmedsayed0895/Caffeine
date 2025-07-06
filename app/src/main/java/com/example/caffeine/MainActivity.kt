@@ -13,6 +13,7 @@ import com.example.caffeine.screen.CoffeeSelectionScreen
 import com.example.caffeine.screen.LoadingScreen
 import com.example.caffeine.screen.OrderDoneScreen
 import com.example.caffeine.screen.ProductScreen
+import com.example.caffeine.screen.SnackProductScreen
 import com.example.caffeine.screen.StartScreen
 import com.example.caffeine.ui.theme.CaffeineTheme
 
@@ -48,6 +49,10 @@ class MainActivity : ComponentActivity() {
                     composable(AppDestination.OrderDoneScreen.route) {
                         OrderDoneScreen(navController)
                     }
+                    composable(AppDestination.SnackProductScreen.route) {
+                        SnackProductScreen(navController)
+                    }
+
                 }
 
 
