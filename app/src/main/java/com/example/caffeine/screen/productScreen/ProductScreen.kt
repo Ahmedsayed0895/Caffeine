@@ -1,14 +1,22 @@
 package com.example.caffeine.screen.productScreen
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -26,6 +34,27 @@ fun ProductScreen(
     navController: NavController,
 ) {
     val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+    val currentSize = remember { mutableStateOf("M") }
+    val currentCoffeeLevel = remember { mutableStateOf("Low") }
+    val buttonOffsetY = remember { Animatable(300f) }
+    val buttonFade = remember { Animatable(0.2f) }
+
+    LaunchedEffect(Unit) {
+        buttonOffsetY.animateTo(
+            targetValue = 0f,
+            animationSpec = tween(
+                durationMillis = 600,
+                easing = EaseInOut,
+
+                )
+        )
+        buttonFade.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+                durationMillis = 200,
+            )
+        )
+    }
 
     Scaffold(
         containerColor = Color.White
@@ -39,6 +68,7 @@ fun ProductScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
+
             BackButtonHeader(
                 bottomSpace = 16.dp,
                 modifier = Modifier.padding(horizontal = 16.dp),
@@ -46,14 +76,31 @@ fun ProductScreen(
             ) {
                 navController.popBackStack()
             }
-            CupSize()
-            SizeSelector()
+
+
+            CupSize(
+                currentSize = currentSize.value
+            )
+            SizeSelector(
+                currentSize = currentSize.value,
+                onClick = {
+                    currentSize.value = it
+                }
+            )
             Spacer(modifier = Modifier.height(16.dp))
-            CoffeeSelector()
+            CoffeeSelector(
+                currentCoffeeLevel = currentCoffeeLevel.value,
+                onClick = {
+                    currentCoffeeLevel.value = it
+                }
+            )
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 text = "Continue",
                 icon = painterResource(R.drawable.arrow_right),
+                modifier = Modifier
+                    .offset(y = buttonOffsetY.value.dp)
+                    .alpha(buttonFade.value),
                 onClick = {
                     navController.navigate(AppDestination.LoadingScreen.route)
                 }

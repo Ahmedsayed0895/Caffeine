@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -44,8 +45,19 @@ fun StartScreen(
         targetValue = 0.5f,
         label = "shadowValue",
         animationSpec = infiniteRepeatable(
-            animation = tween(1700),
+            animation = tween(
+                1700,
+            ),
             repeatMode = RepeatMode.Reverse
+        )
+    )
+    val shadowSize = infiniteTransition.animateFloat(
+        initialValue = 0.85f,
+        targetValue = 1f,
+        label = "shadowValue",
+        animationSpec = infiniteRepeatable(
+            animation = tween(1700),
+            repeatMode = RepeatMode.Reverse,
         )
     )
     Scaffold(
@@ -67,7 +79,9 @@ fun StartScreen(
             Image(
                 painter = painterResource(R.drawable.shadow),
                 contentDescription = "shadow",
-                modifier = Modifier.alpha(shadowValue.value)
+                modifier = Modifier
+                    .alpha(shadowValue.value)
+                    .scale(shadowSize.value)
 
             )
             Spacer(modifier = Modifier.weight(1f))

@@ -22,10 +22,9 @@ import com.example.caffeine.ui.theme.Urbanist
 @Composable
 fun IconTextButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
     text: String,
-    icon: Painter
-
+    icon: Painter,
+    onClick: () -> Unit = {},
 ) {
     Button(
         onClick = onClick,
