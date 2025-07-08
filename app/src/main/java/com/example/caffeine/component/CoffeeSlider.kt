@@ -7,8 +7,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.example.caffeine.model.coffeeList
@@ -23,20 +23,24 @@ fun CoffeeSlider(
     val pagerState = rememberPagerState(pageCount = { coffeeList.size })
     HorizontalPager(
         state = pagerState,
-        pageSpacing = 8.dp,
         pageSize = PageSize.Fixed(250.dp),
+        pageSpacing = -16.dp,
         contentPadding = PaddingValues(horizontal = paddingValue),
+        reverseLayout = true
 
     ) { page ->
         val isSelected = pagerState.currentPage == page
-        val scale = animateFloatAsState(if (isSelected) 1f else 0.8f)
+        val scale = animateFloatAsState(if (isSelected) 1f else 0.6f)
         if (isSelected) {
             onSelectionChanged(coffeeList[page].title)
         }
         Box(
-            modifier = Modifier.scale(scale.value),
         ) {
-            CoffeeItem(coffeeList[page])
+            CoffeeItem(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                coffee = coffeeList[page],
+                imageScale = scale.value
+            )
         }
 
     }

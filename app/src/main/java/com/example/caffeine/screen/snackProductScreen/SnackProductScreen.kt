@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,6 +23,7 @@ import androidx.navigation.NavController
 import com.example.caffeine.R
 import com.example.caffeine.component.ExitHeader
 import com.example.caffeine.component.IconTextButton
+import com.example.caffeine.navigation.AppDestination
 import com.example.caffeine.ui.theme.Sniglet
 import com.example.caffeine.ui.theme.Urbanist
 
@@ -29,6 +31,8 @@ import com.example.caffeine.ui.theme.Urbanist
 fun SnackProductScreen(
     navController: NavController
 ) {
+    val args: Int? = navController.currentBackStackEntry?.arguments?.getInt("image")
+
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -41,7 +45,15 @@ fun SnackProductScreen(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            ExitHeader(bottomSpace = 24.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            ExitHeader(
+                bottomSpace = 24.dp, modifier = Modifier.padding(horizontal = 16.dp),
+                onClick = {
+                    navController.popBackStack(
+                        route = AppDestination.StartScreen.route,
+                        inclusive = false
+                    )
+                }
+            )
             Row(modifier = Modifier.padding(bottom = 24.dp)) {
                 Icon(
                     painter = painterResource(R.drawable.coffee_beans2),
@@ -65,9 +77,9 @@ fun SnackProductScreen(
                     )
             }
             Image(
-                painter = painterResource(R.drawable.cup_cake),
+                painter = painterResource(checkNotNull(args)),
                 contentDescription = "Product Image",
-
+                modifier = Modifier.size(300.dp)
                 )
             Row(
                 modifier = Modifier.padding(top = 12.dp),
@@ -90,7 +102,12 @@ fun SnackProductScreen(
             }
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
-                onClick = { },
+                onClick = {
+                    navController.popBackStack(
+                        route = AppDestination.StartScreen.route,
+                        inclusive = false
+                    )
+                },
                 text = "Thank youuu",
                 icon = painterResource(R.drawable.arrow_right)
             )

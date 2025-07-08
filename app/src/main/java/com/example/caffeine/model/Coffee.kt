@@ -8,8 +8,8 @@ data class Coffee(
 )
 
 val coffeeList = listOf(
-    Coffee("Espresso", R.drawable.espreesso),
-    Coffee("Macchiato", R.drawable.macchiato),
-    Coffee("Latte", R.drawable.latte),
     Coffee("Black", R.drawable.cofee_black),
+    Coffee("Latte", R.drawable.latte),
+    Coffee("Macchiato", R.drawable.macchiato),
+    Coffee("Espresso", R.drawable.espreesso),
 )

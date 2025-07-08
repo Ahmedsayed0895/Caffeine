@@ -2,8 +2,10 @@ package com.example.caffeine.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.caffeine.screen.coffeeSelectionScreen.CoffeeSelectionScreen
 import com.example.caffeine.screen.loadingScreen.LoadingScreen
 import com.example.caffeine.screen.orderDoneScreen.OrderDoneScreen
@@ -33,7 +35,13 @@ fun NavGraph(navController: NavHostController) {
         composable(AppDestination.OrderDoneScreen.route) {
             OrderDoneScreen(navController)
         }
-        composable(AppDestination.SnackProductScreen.route) {
+        composable(
+            "${AppDestination.SnackProductScreen.route}/{image}",
+            arguments = listOf(
+                navArgument("image") {
+                    type = NavType.IntType
+                }
+            )) {
             SnackProductScreen(navController)
         }
         composable(AppDestination.TakeSnacksScreen.route) {

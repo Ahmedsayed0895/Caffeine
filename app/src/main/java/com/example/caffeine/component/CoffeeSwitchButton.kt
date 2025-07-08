@@ -1,5 +1,11 @@
 package com.example.caffeine.component
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.EaseInOutQuint
+import androidx.compose.animation.core.EaseInOutSine
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +32,29 @@ import com.example.caffeine.R
 @Composable
 fun CoffeeSwitchButton() {
     val isChecked = remember { mutableStateOf(false) }
+    val transition = updateTransition(targetState = isChecked.value)
+    val switchOffset = transition.animateFloat(
+        label = "switchTransition",
+        transitionSpec = {
+            tween(
+                easing = EaseInOutQuint
+            )
+        }
+    ) {
+        if (it) 40f else 0f
+    }
+    val switchColor = transition.animateColor(
+        label = "switchColor",
+        transitionSpec = {
+            tween(
+                easing = EaseInOutSine
+
+            )
+        }
+    ) {
+        if (it) Color(0xFFFFEEE7) else Color(0xFF7C351B)
+    }
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
 
@@ -35,7 +64,7 @@ fun CoffeeSwitchButton() {
                 .size(width = 78.dp, height = 40.dp)
                 .clip(RoundedCornerShape(100.dp))
                 .clickable { isChecked.value = !isChecked.value }
-                .background(if (isChecked.value) Color(0xFFFFEEE7) else Color(0xFF7C351B)),
+                .background(switchColor.value),
         ) {
 
             Text(
@@ -55,7 +84,7 @@ fun CoffeeSwitchButton() {
             Image(
                 painter = painterResource(R.drawable.coffee_switcher),
                 contentDescription = "coffee switch",
-                modifier = Modifier.offset(x = if (isChecked.value) 40.dp else 0.dp)
+                modifier = Modifier.offset(x = switchOffset.value.dp)
             )
         }
         Text(
