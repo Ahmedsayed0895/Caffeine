@@ -66,7 +66,7 @@ fun CupSize(
             modifier = modifier
                 .size(size = 100.dp)
                 .align(Alignment.TopCenter)
-                .offset()
+                .offset(y = 100.dp)
         )
         Image(
             painter = painterResource(R.drawable.cup_front),

@@ -1,8 +1,10 @@
 package com.example.caffeine.screen.productScreen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseInOut
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,11 +35,13 @@ import com.example.caffeine.navigation.AppDestination
 fun ProductScreen(
     navController: NavController,
 ) {
-    val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
     val currentSize = remember { mutableStateOf("M") }
     val currentCoffeeLevel = remember { mutableStateOf("Low") }
     val buttonOffsetY = remember { Animatable(300f) }
     val buttonFade = remember { Animatable(0.2f) }
+    val isVisible = remember { mutableStateOf(true) }
+    val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+
 
     LaunchedEffect(Unit) {
         buttonOffsetY.animateTo(
@@ -95,22 +99,28 @@ fun ProductScreen(
                 }
             )
             Spacer(modifier = Modifier.weight(1f))
-            IconTextButton(
-                text = "Continue",
-                icon = painterResource(R.drawable.arrow_right),
-                modifier = Modifier
-                    .offset(y = buttonOffsetY.value.dp)
-                    .alpha(buttonFade.value),
-                onClick = {
-                    navController.navigate(AppDestination.LoadingScreen.route)
-                }
-            )
+            AnimatedVisibility(
+                visible = isVisible.value,
+                exit = fadeOut(tween(durationMillis = 700))
+            ) {
+                IconTextButton(
+                    text = "Continue",
+                    icon = painterResource(R.drawable.arrow_right),
+                    modifier = Modifier
+                        .offset(y = buttonOffsetY.value.dp)
+                        .alpha(buttonFade.value),
+                    onClick = {
+                        isVisible.value = false
+                        navController.navigate(AppDestination.LoadingScreen.route)
+                    }
+                )
+
+            }
 
         }
-
     }
-}
 
+}
 
 
 

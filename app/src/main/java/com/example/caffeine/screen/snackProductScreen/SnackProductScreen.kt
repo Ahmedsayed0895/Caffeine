@@ -1,5 +1,7 @@
 package com.example.caffeine.screen.snackProductScreen
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,9 +13,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +38,24 @@ fun SnackProductScreen(
     navController: NavController
 ) {
     val args: Int? = navController.currentBackStackEntry?.arguments?.getInt("image")
+
+    val scaleTransition = remember { Animatable(0.5f) }
+    val fadeTransition = remember { Animatable(0.7f) }
+
+
+    LaunchedEffect(Unit) {
+        scaleTransition.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+            )
+        )
+        fadeTransition.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+            )
+        )
+
+    }
 
     Scaffold(
         containerColor = Color.White
@@ -76,11 +100,15 @@ fun SnackProductScreen(
 
                     )
             }
+
             Image(
                 painter = painterResource(checkNotNull(args)),
                 contentDescription = "Product Image",
-                modifier = Modifier.size(300.dp)
-                )
+                modifier = Modifier
+                    .size(300.dp)
+                    .scale(scaleTransition.value)
+                    .alpha(fadeTransition.value)
+            )
             Row(
                 modifier = Modifier.padding(top = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -98,8 +126,8 @@ fun SnackProductScreen(
                     contentDescription = "magic wand",
 
                     )
-
             }
+
             Spacer(modifier = Modifier.weight(1f))
             IconTextButton(
                 onClick = {
@@ -107,17 +135,17 @@ fun SnackProductScreen(
                         route = AppDestination.StartScreen.route,
                         inclusive = false
                     )
+
                 },
                 text = "Thank youuu",
                 icon = painterResource(R.drawable.arrow_right)
             )
+
+
         }
-
     }
+
 }
-
-
-
 
 
 
