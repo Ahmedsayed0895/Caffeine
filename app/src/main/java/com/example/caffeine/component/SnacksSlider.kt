@@ -20,7 +20,9 @@ import com.example.caffeine.screen.takeSnacksScreen.snacksList
 import kotlin.math.abs
 
 @Composable
-fun SnackSlider() {
+fun SnackSlider(
+    onClick: (Int) -> Unit
+) {
     val pagerState = rememberPagerState(
         pageCount = { snacksList.size }
     )
@@ -83,6 +85,7 @@ fun SnackSlider() {
                 SnackCard(
                     image = snacksList[page],
                     index = page,
+                    onClick = onClick
                 )
             }
         }

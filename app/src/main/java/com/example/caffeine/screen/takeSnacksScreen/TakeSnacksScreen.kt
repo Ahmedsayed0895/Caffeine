@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -17,7 +15,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.caffeine.component.ExitHeader
 import com.example.caffeine.component.SnackSlider
-import com.example.caffeine.model.coffeeList
 import com.example.caffeine.navigation.AppDestination
 import com.example.caffeine.ui.theme.Urbanist
 
@@ -26,14 +23,11 @@ import com.example.caffeine.ui.theme.Urbanist
 fun TakeSnacksScreen(
     navController: NavController
 ) {
-    val currentCoffeeTitle = remember { mutableStateOf(coffeeList.first().title) }
 
     TakeSnacksContent(
-        onSelectionChanged = {
-            currentCoffeeTitle.value = it
-        },
-        onButtonClick = {
-            navController.navigate("${AppDestination.ProductScreen.route}/${currentCoffeeTitle.value}")
+
+        onClick = { image ->
+            navController.navigate("${AppDestination.SnackProductScreen.route}/${image}")
         },
         onExitClick = {
             navController.popBackStack(
@@ -46,8 +40,7 @@ fun TakeSnacksScreen(
 
 @Composable
 fun TakeSnacksContent(
-    onButtonClick: () -> Unit,
-    onSelectionChanged: (String) -> Unit,
+    onClick: (Int) -> Unit,
     onExitClick: () -> Unit,
 ) {
     Scaffold(
@@ -77,7 +70,9 @@ fun TakeSnacksContent(
                 fontFamily = Urbanist
             )
 
-            SnackSlider()
+            SnackSlider(
+                onClick = onClick
+            )
 
         }
 

@@ -1,5 +1,9 @@
 package com.example.caffeine.component
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,17 +28,29 @@ import com.example.caffeine.ui.theme.Urbanist
 @Composable
 fun SizeSelector(
     allSizes: List<String> = listOf("S", "M", "L"),
-    onClick: (String) -> Unit = {}
+    onClick: (String) -> Unit = {},
+    currentSize: String
 ) {
+
+
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(100.dp))
             .background(Color(0xffF5F5F5))
             .padding(horizontal = 4.dp, vertical = 8.dp)
+
     )
     {
         allSizes.forEach { size ->
-            val isSelected = size == "L"
+            val isSelected = size == currentSize
+            val transition = updateTransition(targetState = isSelected)
+            val backgroundColor =
+                transition.animateColor(transitionSpec = { tween(easing = EaseInOut) }) {
+                    when (it) {
+                        true -> Color(0xFF7C351B)
+                        false -> Color.Transparent
+                    }
+                }
 
             Box(
                 Modifier
@@ -51,7 +67,7 @@ fun SizeSelector(
                     .size(40.dp)
                     .clip(CircleShape)
                     .clickable { onClick(size) }
-                    .background(if (isSelected) Color(0xFF7C351B) else Color.Transparent)
+                    .background(backgroundColor.value)
                     .padding(horizontal = 10.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {

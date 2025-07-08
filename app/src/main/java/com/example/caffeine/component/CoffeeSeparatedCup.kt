@@ -1,10 +1,15 @@
 package com.example.caffeine.component
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -13,6 +18,16 @@ import com.example.caffeine.R
 
 @Composable
 fun CoffeeSeparatedCup() {
+    val coverOffset = remember { Animatable(-1000f) }
+
+    LaunchedEffect(Unit) {
+        coverOffset.animateTo(
+            targetValue = 0f,
+            animationSpec = tween(
+                1000
+            )
+        )
+    }
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.TopCenter
@@ -21,13 +36,18 @@ fun CoffeeSeparatedCup() {
         Image(
             painter = painterResource(R.drawable.big_cup),
             contentDescription = "Product Image",
-            modifier = Modifier.padding(top = 30.dp),
+            modifier = Modifier
+                .padding(top = 30.dp)
+
 
             )
         Image(
             painter = painterResource(R.drawable.cup_cover),
             contentDescription = "Product Image",
-            modifier = Modifier.padding(top = 10.dp),
+            modifier = Modifier
+                .padding(top = 10.dp)
+                .offset(y = coverOffset.value.dp),
+
 
             )
     }

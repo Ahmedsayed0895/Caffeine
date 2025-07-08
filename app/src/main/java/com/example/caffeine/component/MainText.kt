@@ -1,5 +1,10 @@
 package com.example.caffeine.component
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -9,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +27,16 @@ import com.example.caffeine.ui.theme.Sniglet
 
 @Composable
 fun MainText() {
+    val infiniteTransition = rememberInfiniteTransition()
+    val fadeValue = infiniteTransition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = 1f,
+        label = "fadeValue",
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000),
+            repeatMode = RepeatMode.Reverse
+        ),
+    )
     Box(
         modifier = Modifier
             .padding(bottom = 32.dp)
@@ -42,13 +58,17 @@ fun MainText() {
             painter = painterResource(R.drawable.star),
             contentDescription = "star",
             tint = Color(0xFF1f1f1f),
-            modifier = Modifier.align(Alignment.BottomEnd)
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .alpha(fadeValue.value)
         )
         Icon(
             painter = painterResource(R.drawable.star),
             contentDescription = "star",
             tint = Color(0xFF1f1f1f),
-            modifier = Modifier.align(Alignment.TopEnd)
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .alpha(fadeValue.value)
         )
         Icon(
             painter = painterResource(R.drawable.star),
@@ -57,6 +77,7 @@ fun MainText() {
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .offset(y = -26.dp)
+                .alpha(fadeValue.value)
         )
     }
 }

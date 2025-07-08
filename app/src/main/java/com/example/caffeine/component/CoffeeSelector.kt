@@ -1,5 +1,9 @@
 package com.example.caffeine.component
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -28,7 +32,8 @@ import com.example.caffeine.ui.theme.Urbanist
 @Composable
 fun CoffeeSelector(
     allLevels: List<String> = listOf("Low", "Medium", "High"),
-    onClick: (String) -> Unit = {}
+    onClick: (String) -> Unit = {},
+    currentCoffeeLevel: String
 ) {
 
     Column {
@@ -42,7 +47,15 @@ fun CoffeeSelector(
         {
 
             allLevels.forEach { level ->
-                val isSelected = level == "Medium"
+                val isSelected = level == currentCoffeeLevel
+                val transition = updateTransition(targetState = isSelected)
+                val backgroundColor =
+                    transition.animateColor(transitionSpec = { tween(easing = EaseInOut) }) {
+                        when (it) {
+                            true -> Color(0xFF7C351B)
+                            false -> Color.Transparent
+                        }
+                    }
 
                 Box(
                     Modifier
@@ -59,7 +72,7 @@ fun CoffeeSelector(
                         .size(40.dp)
                         .clip(CircleShape)
                         .clickable { onClick(level) }
-                        .background(if (isSelected) Color(0xFF7C351B) else Color.Transparent)
+                        .background(backgroundColor.value)
                         .padding(horizontal = 10.dp, vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {

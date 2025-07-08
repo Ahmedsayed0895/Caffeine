@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,14 +17,23 @@ import com.example.caffeine.model.Coffee
 
 
 @Composable
-fun CoffeeItem(coffee: Coffee) {
+fun CoffeeItem(
+    modifier: Modifier = Modifier,
+    coffee: Coffee,
+    imageScale: Float
+) {
     Column(
+        modifier = modifier,
         horizontalAlignment = CenterHorizontally,
     ) {
         Image(
             painter = painterResource(coffee.image),
             contentDescription = coffee.title,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier
+                .scale(imageScale)
+                .padding(bottom = 16.dp)
+
+
         )
         Text(
             text = coffee.title,

@@ -1,5 +1,8 @@
 package com.example.caffeine.screen.coffeeSelectionScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,27 +26,16 @@ import com.example.caffeine.model.coffeeList
 import com.example.caffeine.navigation.AppDestination
 
 
+
 @Composable
 fun CoffeeSelectionScreen(
     navController: NavController
+
 ) {
     val currentCoffeeTitle = remember { mutableStateOf(coffeeList.first().title) }
 
-    CoffeeSelectionContent(
-        onSelectionChanged = {
-            currentCoffeeTitle.value = it
-        },
-        onButtonClick = {
-            navController.navigate("${AppDestination.ProductScreen.route}/${currentCoffeeTitle.value}")
-        }
-    )
-}
+    val isVisible = remember { mutableStateOf(true) }
 
-@Composable
-fun CoffeeSelectionContent(
-    onButtonClick: () -> Unit,
-    onSelectionChanged: (String) -> Unit,
-) {
     Scaffold(
         containerColor = Color.White
     ) { contentPadding ->
@@ -56,19 +48,36 @@ fun CoffeeSelectionContent(
             horizontalAlignment = CenterHorizontally,
 
             ) {
-            Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+
+            AnimatedVisibility(
+                visible = isVisible.value,
+                exit = slideOutHorizontally(tween(durationMillis = 700)) { -it }
+            ) {
+                Header(bottomSpace = 16.dp, modifier = Modifier.padding(horizontal = 16.dp))
+            }
             WelcomeMessage()
-            CoffeeSlider(onSelectionChanged = onSelectionChanged)
+            CoffeeSlider(onSelectionChanged = {
+                currentCoffeeTitle.value = it
+            })
             Spacer(modifier = Modifier.weight(1f))
+            AnimatedVisibility(
+                visible = isVisible.value,
+                exit = slideOutHorizontally(tween(durationMillis = 700)) { -it }
+            ) {
             IconTextButton(
                 text = "Continue",
                 icon = painterResource(R.drawable.arrow_right),
-                onClick = onButtonClick
+                onClick = {
+                    isVisible.value = false
+                    navController.navigate("${AppDestination.ProductScreen.route}/${currentCoffeeTitle.value}")
+                }
             )
+            }
 
         }
 
     }
 }
+
 
 
