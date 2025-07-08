@@ -74,14 +74,6 @@ fun LoadingScreen(
                 .padding(vertical = 16.dp),
             horizontalAlignment = CenterHorizontally,
             ) {
-            /*  BackButtonHeader(
-                  bottomSpace = 16.dp,
-                  modifier = Modifier.padding(horizontal = 16.dp),
-                  title = checkNotNull(args)
-              ) {
-                  navController.popBackStack()
-              }
-              */
             Spacer(
                 modifier = Modifier.height(64.dp)
             )
