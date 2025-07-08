@@ -31,6 +31,7 @@ import com.example.caffeine.ui.theme.Urbanist
 fun CupSize(
     modifier: Modifier = Modifier,
     currentSize: String,
+    imageOffset: Float
 ) {
     val size = when (currentSize) {
         "S" -> 200
@@ -51,6 +52,7 @@ fun CupSize(
         )
     )
 
+
     Box(
         modifier = modifier.size(width = 360.dp, height = 341.dp),
         contentAlignment = Alignment.Center
@@ -66,7 +68,7 @@ fun CupSize(
             modifier = modifier
                 .size(size = 100.dp)
                 .align(Alignment.TopCenter)
-                .offset(y = 100.dp)
+                .offset(y = imageOffset.dp)
         )
         Image(
             painter = painterResource(R.drawable.cup_front),

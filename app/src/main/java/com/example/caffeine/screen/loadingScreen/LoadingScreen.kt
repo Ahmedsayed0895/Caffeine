@@ -1,6 +1,6 @@
 package com.example.caffeine.screen.loadingScreen
 
-import androidx.compose.animation.core.EaseInOutQuart
+import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -41,6 +41,7 @@ import kotlinx.coroutines.withContext
 fun LoadingScreen(
     navController: NavController,
 ) {
+    val args: String? = navController.currentBackStackEntry?.arguments?.getString("currentSize")
 
     val transition = rememberInfiniteTransition()
     val offsetTransition = transition.animateFloat(
@@ -50,7 +51,7 @@ fun LoadingScreen(
             infiniteRepeatable(
                 animation = tween(
                     durationMillis = 4000,
-                    easing = EaseInOutQuart
+                    easing = EaseOut
                 ),
                 repeatMode = RepeatMode.Reverse
             ),
@@ -73,7 +74,21 @@ fun LoadingScreen(
                 .padding(vertical = 16.dp),
             horizontalAlignment = CenterHorizontally,
             ) {
-            CupSize(currentSize = "M")
+            /*  BackButtonHeader(
+                  bottomSpace = 16.dp,
+                  modifier = Modifier.padding(horizontal = 16.dp),
+                  title = checkNotNull(args)
+              ) {
+                  navController.popBackStack()
+              }
+              */
+            Spacer(
+                modifier = Modifier.height(64.dp)
+            )
+            CupSize(
+                currentSize = checkNotNull(args),
+                imageOffset = 100f,
+            )
             Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier

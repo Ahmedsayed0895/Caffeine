@@ -3,6 +3,7 @@ package com.example.caffeine.screen.productScreen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.EaseInOutCubic
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import com.example.caffeine.component.CupSize
 import com.example.caffeine.component.IconTextButton
 import com.example.caffeine.component.SizeSelector
 import com.example.caffeine.navigation.AppDestination
+import kotlinx.coroutines.launch
 
 @Composable
 fun ProductScreen(
@@ -37,10 +39,48 @@ fun ProductScreen(
 ) {
     val currentSize = remember { mutableStateOf("M") }
     val currentCoffeeLevel = remember { mutableStateOf("Low") }
+    val previousCoffeeLevel = remember { mutableStateOf("") }
     val buttonOffsetY = remember { Animatable(300f) }
     val buttonFade = remember { Animatable(0.2f) }
     val isVisible = remember { mutableStateOf(true) }
     val args: String? = navController.currentBackStackEntry?.arguments?.getString("title")
+    val imageOffset = remember { Animatable(-1000f) }
+    val coffeeScale = remember { Animatable(0f) }
+
+
+    LaunchedEffect(currentCoffeeLevel.value) {
+        val targetOffset = 100f
+        val levelOrder = mapOf("Low" to 1, "Medium" to 2, "High" to 3)
+        val currentLevelValue = levelOrder[currentCoffeeLevel.value] ?: 1
+        val previousLevelValue = levelOrder[previousCoffeeLevel.value] ?: 0
+        if (currentLevelValue > previousLevelValue || previousLevelValue == 0) {
+            imageOffset.snapTo(-1000f)
+            imageOffset.animateTo(
+                targetValue = targetOffset,
+                animationSpec = tween(durationMillis = 1000, easing = EaseInOutCubic)
+            )
+            launch {
+                coffeeScale.animateTo(
+                    targetValue = 1f,
+                    animationSpec = tween(durationMillis = 1000, easing = EaseInOut)
+                )
+            }
+        } else {
+            imageOffset.snapTo(100f)
+            imageOffset.animateTo(
+                targetValue = -1000f,
+                animationSpec = tween(durationMillis = 1000, easing = EaseInOutCubic)
+            )
+            launch {
+                coffeeScale.animateTo(
+                    targetValue = 1f,
+                    animationSpec = tween(durationMillis = 1000, easing = EaseInOut)
+                )
+            }
+        }
+        previousCoffeeLevel.value = currentCoffeeLevel.value
+    }
+
 
 
     LaunchedEffect(Unit) {
@@ -83,7 +123,8 @@ fun ProductScreen(
 
 
             CupSize(
-                currentSize = currentSize.value
+                currentSize = currentSize.value,
+                imageOffset = imageOffset.value,
             )
             SizeSelector(
                 currentSize = currentSize.value,
@@ -96,6 +137,7 @@ fun ProductScreen(
                 currentCoffeeLevel = currentCoffeeLevel.value,
                 onClick = {
                     currentCoffeeLevel.value = it
+
                 }
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -111,7 +153,7 @@ fun ProductScreen(
                         .alpha(buttonFade.value),
                     onClick = {
                         isVisible.value = false
-                        navController.navigate(AppDestination.LoadingScreen.route)
+                        navController.navigate("${AppDestination.LoadingScreen.route}/${currentSize.value}")
                     }
                 )
 

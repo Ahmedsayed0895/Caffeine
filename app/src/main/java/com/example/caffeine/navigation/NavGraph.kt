@@ -28,9 +28,15 @@ fun NavGraph(navController: NavHostController) {
         }
         productScreenRoute(navController)
         composable(
-            route = AppDestination.LoadingScreen.route,
+            route = "${AppDestination.LoadingScreen.route}/{currentSize}",
+            arguments = listOf(
+                navArgument("currentSize") {
+                    type = NavType.StringType
+                }
+            )
         ) {
             LoadingScreen(navController)
+
         }
         composable(AppDestination.OrderDoneScreen.route) {
             OrderDoneScreen(navController)
