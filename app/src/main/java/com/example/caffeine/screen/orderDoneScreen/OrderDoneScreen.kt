@@ -86,7 +86,9 @@ fun OrderDoneScreen(
             CoffeeSwitchButton()
             Spacer(modifier = Modifier.height(16.dp))
             IconTextButton(
-                onClick = { },
+                onClick = {
+                    navController.navigate(AppDestination.TakeSnacksScreen.route)
+                },
                 text = "Take snack",
                 icon = painterResource(R.drawable.arrow_right),
                 modifier = Modifier

@@ -10,6 +10,7 @@ import com.example.caffeine.screen.orderDoneScreen.OrderDoneScreen
 import com.example.caffeine.screen.productScreen.productScreenRoute
 import com.example.caffeine.screen.snackProductScreen.SnackProductScreen
 import com.example.caffeine.screen.startScreen.StartScreen
+import com.example.caffeine.screen.takeSnacksScreen.TakeSnacksScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -35,6 +36,10 @@ fun NavGraph(navController: NavHostController) {
         composable(AppDestination.SnackProductScreen.route) {
             SnackProductScreen(navController)
         }
+        composable(AppDestination.TakeSnacksScreen.route) {
+            TakeSnacksScreen(navController)
+        }
+
 
     }
 }

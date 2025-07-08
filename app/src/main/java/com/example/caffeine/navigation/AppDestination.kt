@@ -7,5 +7,5 @@ sealed class AppDestination(val route: String) {
     object LoadingScreen : AppDestination("LoadingScreen")
     object OrderDoneScreen : AppDestination("OrderDoneScreen")
     object SnackProductScreen : AppDestination("SnackProductScreen")
-
+    object TakeSnacksScreen : AppDestination("TakeSnacksScreen")
 }
